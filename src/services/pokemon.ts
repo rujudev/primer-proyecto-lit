@@ -1,9 +1,27 @@
+type BaseType = {
+  id: string;
+  literal: string;
+  baseStat: number;
+};
+
+type Types = Omit<BaseType, 'baseStat'>;
+type Abilities = Omit<BaseType, 'baseStat'>;
+
+export type PokeItem = {
+  id?: string;
+  name?: string;
+  sprite?: string;
+  types: Types[];
+  stats: BaseType[];
+  abilities: Abilities[];
+};
+
 export type PokemonApiResponse = {
   name: string;
   url: string;
 };
 
-export interface PokeItem {
+export interface PokeListItem {
   abilities: Ability[];
   base_experience: number;
   cries: Cries;
@@ -192,7 +210,7 @@ export async function getPokemons(): Promise<PokemonApiResponse[]> {
   return response.results;
 }
 
-export async function getPokemon(id: string): Promise<PokeItem> {
+export async function getPokemon(id: string): Promise<PokeListItem> {
   const result = await fetch(`${API_URL}/${id}`);
   return await result.json();
 }

@@ -1,46 +1,20 @@
-import { localized, msg, str } from '@lit/localize';
+import { provide } from '@lit/context';
+import { localized, msg } from '@lit/localize';
 import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { PokeList } from './pokeList.js';
-import { PokeItem, Species } from './services/pokemon.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { pokeItemContext } from './context/pokeitem-context.js';
+import { PokeItem } from './services/pokemon.js';
 
-type StatName = {
-  hp: string;
-  attack: string;
-  defense: string;
-  'special-attack': string;
-  'special-defense': string;
-  speed: string;
-};
+import './components/pokemonImage.js';
 
 @customElement('poke-list-item')
 @localized()
 export class PokeListItem extends LitElement {
-  @property({ type: Object }) pokeItem: PokeItem | null = null;
-
-  static statsName = {
-    hp: 'HP',
-    attack: msg('Attack'),
-    defense: msg('Defense'),
-    'special-attack': msg('Special Attack'),
-    'special-defense': msg('Special Defense'),
-    speed: msg('Speed'),
-  };
+  @provide({ context: pokeItemContext })
+  @property({ type: Object })
+  pokeItem: PokeItem | null = null;
 
   static styles = css`
-    /* Estilos generales */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
-    }
-
-    body {
-      background-color: #f5f5f5;
-      padding: 20px;
-    }
-
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -73,44 +47,19 @@ export class PokeListItem extends LitElement {
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
-    /* Imagen del Pokémon */
-    .pokemon-image {
-      background-color: #f0f0f0;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .pokemon-image img {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-    }
-
     /* Información del Pokémon */
     .pokemon-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
       padding: 20px;
     }
 
     .pokemon-name {
       font-size: 1.5rem;
-      margin-bottom: 10px;
+      margin-bottom: 0;
       color: #333;
-    }
-
-    /* Tipos de Pokémon */
-    .pokemon-type {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .type {
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: white;
-      text-transform: uppercase;
     }
 
     .normal {
@@ -185,36 +134,65 @@ export class PokeListItem extends LitElement {
       background-color: #ee99ac;
     }
 
+    .pokemon-types {
+      display: flex;
+      justify-content: space-between;
+      height: fit-content;
+
+      /* Tipos de Pokémon */
+      & .pokemon-type {
+        display: flex;
+        gap: 10px;
+
+        & .type {
+          padding: 5px 10px;
+          border-radius: 5px;
+          font-size: 0.8rem;
+          font-weight: bold;
+          color: white;
+          text-transform: uppercase;
+        }
+      }
+    }
+
     /* Estadísticas */
     .pokemon-stats {
       margin-bottom: 15px;
-    }
 
-    .stat {
-      margin-bottom: 8px;
-    }
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
-    .stat-name {
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
+      & .stat {
+        & .stat-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
 
-    .stat-value {
-      float: right;
-      font-size: 0.9rem;
-    }
+          & .stat-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+          }
 
-    .stat-bar {
-      height: 8px;
-      background-color: #eee;
-      border-radius: 4px;
-      margin-top: 5px;
-      overflow: hidden;
-    }
+          & .stat-value {
+            float: right;
+            font-size: 0.9rem;
+          }
+        }
 
-    .stat-fill {
-      height: 100%;
-      border-radius: 4px;
+        & .stat-bar {
+          height: 8px;
+          background-color: #eee;
+          border-radius: 4px;
+          margin-top: 5px;
+          overflow: hidden;
+
+          & .stat-fill {
+            height: 100%;
+            border-radius: 4px;
+          }
+        }
+      }
     }
 
     .hp {
@@ -265,39 +243,32 @@ export class PokeListItem extends LitElement {
   render() {
     return html`
       <li class="pokemon-card">
-        <div class="pokemon-image">
-          <img
-            src=${this.pokeItem?.sprites.front_default || ''}
-            alt=${this.pokeItem?.name || ''}
-          />
-        </div>
         <div class="pokemon-info">
           <h2 class="pokemon-name">${this.pokeItem?.name}</h2>
+          <pokemon-image></pokemon-image>
           <!-- Tipo de pokemon -->
-          ${this.pokeItem?.types.map(
-            ({ type }) => html`
-              <div class="pokemon-type">
-                <span class="type ${type.name.toLowerCase()}"
-                  >${type.name}</span
-                >
-              </div>
-            `,
-          )}
+          <div class="pokemon-types">
+            ${this.pokeItem?.types.map(
+              ({ id, literal }) => html`
+                <div class="pokemon-type">
+                  <span class="type ${id}">${literal}</span>
+                </div>
+              `,
+            )}
+          </div>
           <!-- Estadísticas -->
           <div class="pokemon-stats">
             ${this.pokeItem?.stats.map(
-              ({ base_stat, stat }) => html`
+              ({ id, literal, baseStat }) => html`
                 <div class="stat">
-                  <span class="stat-name"
-                    >${PokeListItem.statsName[
-                      stat.name as keyof StatName
-                    ]}:</span
-                  >
-                  <span class="stat-value">${base_stat}</span>
+                  <div class="stat-info">
+                    <span class="stat-name">${literal}:</span>
+                    <span class="stat-value">${baseStat}</span>
+                  </div>
                   <div class="stat-bar">
                     <div
                       class="stat-fill hp"
-                      style="width: ${base_stat}%;"
+                      style="width: ${baseStat}%;"
                     ></div>
                   </div>
                 </div>
@@ -309,7 +280,7 @@ export class PokeListItem extends LitElement {
             <h3>Habilidades:</h3>
             <ul>
               ${this.pokeItem?.abilities.map(
-                ({ ability }) => html` <li>${msg(str`${ability.name}`)}</li> `,
+                ({ literal }) => html`<li>${literal}</li> `,
               )}
             </ul>
           </div>

@@ -1,13 +1,20 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { getPokemon, getPokemons, PokeItem } from './services/pokemon.js';
+import {
+  getPokemon,
+  getPokemons,
+  PokeItem,
+  PokeListItem,
+} from './services/pokemon.js';
 
+import { provide } from '@lit/context';
+import { pokeItemContext } from './context/pokeitem-context.js';
 import './pokeList.js';
 
 @customElement('fetching-data')
 export class FetchingData extends LitElement {
-  @state() pokeList: PokeItem[] = [];
-  @state() pokePromises: Array<Promise<PokeItem>> = [];
+  @state() pokeList: PokeListItem[] = [];
+  @state() pokePromises: Array<Promise<PokeListItem>> = [];
 
   static styles = css`
     :host {
@@ -49,9 +56,18 @@ export class FetchingData extends LitElement {
     this._initList();
   }
 
+  // render() {
+  //   return this.pokeList.length === 0
+  //     ? html`<p>Cargando pokemons...</p>`
+  //     : html` <poke-list .pokeList=${this.pokeList}></poke-list> `;
+  // }
+
   render() {
     return this.pokeList.length === 0
       ? html`<p>Cargando pokemons...</p>`
-      : html` <poke-list .pokeList=${this.pokeList}></poke-list> `;
+      : html`
+          <
+          <poke-list .pokeList=${this.pokeList}></poke-list>
+        `;
   }
 }

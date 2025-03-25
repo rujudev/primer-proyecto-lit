@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file target-language="es-419" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="s41431f2bbdc5fd3d">
+  <source>Attack</source>
+  <target>Ataque</target>
+</trans-unit>
+<trans-unit id="s6958dbb3beffbfd3">
+  <source>Defense</source>
+  <target>Defensa</target>
+</trans-unit>
+<trans-unit id="s15346ff430ed24ec">
+  <source>Special Attack</source>
+  <target>Ataque Especial</target>
+</trans-unit>
+<trans-unit id="s792b0220bed0259c">
+  <source>Special Defense</source>
+  <target>Defensa Especial</target>
+</trans-unit>
+<trans-unit id="se24130f1123560a0">
+  <source>Speed</source>
+  <target>Velocidad</target>
+</trans-unit>
+<trans-unit id="s422970755c943436">
+  <source>big-pecks</source>
+  <target>Sacapecho</target>
+</trans-unit>
+<trans-unit id="s4b08d2abbc27854b">
+  <source>blaze</source>
+  <target>Mar Llamas</target>
+</trans-unit>
+<trans-unit id="sdd5968ffa2a88787">
+  <source>chlorophyll</source>
+  <target>Clorofila</target>
+</trans-unit>
+<trans-unit id="s343be40ddbf8763d">
+  <source>compound-eyes</source>
+  <target>Ojo Compuesto</target>
+</trans-unit>
+<trans-unit id="sf3df77723ffa95fc">
+  <source>guts</source>
+  <target>Agallas</target>
+</trans-unit>
+<trans-unit id="sb8793797bf795156">
+  <source>hustle</source>
+  <target>Entusiasmo</target>
+</trans-unit>
+<trans-unit id="s1089eb6feb66bd82">
+  <source>keen-eye</source>
+  <target>Vista Lince</target>
+</trans-unit>
+<trans-unit id="s455881d23e5c7d9c">
+  <source>overgrow</source>
+  <target>Espesura</target>
+</trans-unit>
+<trans-unit id="sec3b88faef4029f2">
+  <source>rain-dish</source>
+  <target>Cura Lluvia</target>
+</trans-unit>
+<trans-unit id="s426fa6e9c3fbbc9b">
+  <source>run-away</source>
+  <target>Fuga</target>
+</trans-unit>
+<trans-unit id="s591d4f7e3c435293">
+  <source>shed-skin</source>
+  <target>Mudar</target>
+</trans-unit>
+<trans-unit id="s728d918067c5ae13">
+  <source>shield-dust</source>
+  <target>Polvo Escudo</target>
+</trans-unit>
+<trans-unit id="s243fe107269bf016">
+  <source>sniper</source>
+  <target>Francotirador</target>
+</trans-unit>
+<trans-unit id="s2726435a4ff44522">
+  <source>solar-power</source>
+  <target>Poder Solar</target>
+</trans-unit>
+<trans-unit id="se8b166a271f890bf">
+  <source>swarm</source>
+  <target>Enjambre</target>
+</trans-unit>
+<trans-unit id="sef9ea10b153a27dd">
+  <source>tangled-feet</source>
+  <target>Tumbos</target>
+</trans-unit>
+<trans-unit id="s54f88204f25c4e4c">
+  <source>tinted-lens</source>
+  <target>Filtro Solar</target>
+</trans-unit>
+<trans-unit id="sdaffb0cd1b8ecb65">
+  <source>torrent</source>
+  <target>Torrente</target>
+</trans-unit>
+<trans-unit id="s00613119135a9315">
+  <source>bug</source>
+  <target>Bicho</target>
+</trans-unit>
+<trans-unit id="saa77f578efdfc4b9">
+  <source>fire</source>
+  <target>Fuego</target>
+</trans-unit>
+<trans-unit id="sd40ea4551f5aad9e">
+  <source>flying</source>
+  <target>Volador</target>
+</trans-unit>
+<trans-unit id="s32e2912977f5f21d">
+  <source>grass</source>
+  <target>Planta</target>
+</trans-unit>
+<trans-unit id="s61053f0e3ebbd272">
+  <source>normal</source>
+  <target>Normal</target>
+</trans-unit>
+<trans-unit id="s82b0b58435f6cc91">
+  <source>poison</source>
+  <target>Veneno</target>
+</trans-unit>
+<trans-unit id="sd3cacd4c82e5be70">
+  <source>water</source>
+  <target>Agua</target>
+</trans-unit>
+</body>
+</file>
+</xliff>

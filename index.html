@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -21,6 +21,18 @@
 
         width: 100%;
       }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+      }
+
+      body {
+        background-color: #f5f5f5;
+        padding: 20px;
+      }
     </style>
     <title>fetching-data</title>
   </head>
@@ -29,5 +41,14 @@
     <fetching-data></fetching-data>
 
     <script type="module" src="./out-tsc/src/fetching-data.js"></script>
+    <script type="module" src="./out-tsc/src/localization.js"></script>
+    <script type="module">
+      import { LOCALE_STATUS_EVENT } from '@lit/localize';
+      import { setLocale } from './out-tsc/src/localization.js';
+
+      window.addEventListener('DOMContentLoaded', function () {
+        setLocale('es-419');
+      });
+    </script>
   </body>
 </html>
