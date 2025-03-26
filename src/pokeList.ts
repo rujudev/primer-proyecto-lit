@@ -4,15 +4,8 @@ import { repeat } from 'lit/directives/repeat.js';
 import { PokeItem, PokeListItem } from './services/pokemon.js';
 
 import { msg } from '@lit/localize';
+import './components/select/select-wrapper.js';
 import './pokeListItem.js';
-
-const ORDER = {
-  HP: 'hp',
-};
-
-const FILTER = {
-  TYPE: 'type',
-};
 
 @customElement('poke-list')
 export class PokeList extends LitElement {
@@ -95,42 +88,25 @@ export class PokeList extends LitElement {
   @state()
   data: PokeItem[] = [];
 
+  @state()
+  private filterValue: string = '';
+
+  @state()
+  private orderValue: string = '';
+
   private static _statsName: Record<string, string> | null = null;
   private static _abilitiesName: Record<string, string> | null = null;
   private static _typesName: Record<string, string> | null = null;
 
-  @state()
-  private orderValue: string = '';
-  private ordersValue: string[] = [
-    'hp',
-    'attack',
-    'defense',
-    'special-attack',
-    'special-defense',
-    'speed',
-  ];
-
-  @state()
-  private filterValue: string = '';
-  private filtersValue: string[] = [
-    'bug',
-    'fire',
-    'flying',
-    'grass',
-    'normal',
-    'poison',
-    'water',
-  ];
-
   static getStatsName(statName: string) {
     if (!this._statsName) {
       this._statsName = {
-        hp: 'HP',
-        attack: msg('Attack'),
-        defense: msg('Defense'),
-        'special-attack': msg('Special Attack'),
-        'special-defense': msg('Special Defense'),
-        speed: msg('Speed'),
+        hp: msg('hp'),
+        attack: msg('attack'),
+        defense: msg('defense'),
+        'special-attack': msg('special-attack'),
+        'special-defense': msg('special-defense'),
+        speed: msg('speed'),
       };
     }
 
@@ -183,20 +159,10 @@ export class PokeList extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    // this.pokeList.forEach(item => {
-    //   console.log(item);
-    //   item.types.forEach(({ type }) => {
-    //     types = {
-    //       ...types,
-    //       [`${type.name}`]: type.name,
-    //     };
-    //   });
-    // });
-
     this.data = this._mapPokeList();
   }
 
-  private _mapPokeList(): PokeItem[] {
+  protected _mapPokeList(): PokeItem[] {
     return this.pokeList.map(({ sprites, name, types, stats, abilities }) => {
       return {
         name,
@@ -231,8 +197,11 @@ export class PokeList extends LitElement {
     return [...data].filter(item => item.types.find(({ id }) => id === type));
   }
 
-  private _handleChangeOrder(event: Event) {
+  private _handleChangeOrder = (event: Event) => {
     const { value } = event.target as HTMLSelectElement;
+
+    console.log(this);
+
     let arrAux = this._mapPokeList();
 
     if (this.filterValue) arrAux = this._filterByType(arrAux, this.filterValue);
@@ -243,9 +212,9 @@ export class PokeList extends LitElement {
       this.orderValue = value;
       this.data = this._orderDataByStats(arrAux, value);
     }
-  }
+  };
 
-  private _handleChangeFilter(event: Event) {
+  private _handleChangeFilter = (event: Event) => {
     const { value } = event.target as HTMLSelectElement;
     let arrAux = this._mapPokeList();
 
@@ -258,51 +227,17 @@ export class PokeList extends LitElement {
       this.filterValue = value;
       this.data = this._filterByType(arrAux, value) || [];
     }
-  }
+  };
 
   render() {
     return this.pokeList.length === 0
       ? html`<p>No hay pokemons para mostrar</p>`
       : html`
           <main>
-            <div class="selects-wrapper">
-              <div class="select-container">
-                <label for="filter-select">Ordenar por característica:</label>
-                <select
-                  id="filter-select"
-                  name="filter"
-                  .value="${this.orderValue}"
-                  @change="${this._handleChangeOrder}"
-                >
-                  <option value="">Seleccionar una característica</option>
-                  ${this.ordersValue.map(
-                    order =>
-                      html`<option value="${order}">
-                        ${PokeList.getStatsName(order)}
-                      </option>`,
-                  )}
-                </select>
-              </div>
-
-              <div class="select-container">
-                <label for="sort-select">Filtrar por tipo:</label>
-                <select
-                  id="sort-select"
-                  name="sort"
-                  .value="${this.filterValue}"
-                  @change=${this._handleChangeFilter}
-                >
-                  <option value="">Selecciona un tipo</option>
-                  ${this.filtersValue.map(
-                    filter => html`
-                      <option value="${filter}">
-                        ${PokeList.getTypesName(filter)}
-                      </option>
-                    `,
-                  )}
-                </select>
-              </div>
-            </div>
+            <select-wrapper
+              .onHandleChangeOrder="${this._handleChangeOrder}"
+              .onHandleChangeFilter="${this._handleChangeFilter}"
+            ></select-wrapper>
             <ul>
               ${repeat(
                 this.data,

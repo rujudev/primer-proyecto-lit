@@ -4,41 +4,25 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { pokeItemContext } from '../context/pokeitem-context.js';
 import { PokeItem } from '../services/pokemon.js';
 
-@customElement('pokemon-image')
+@customElement('pokemon-info')
 export class PokemonImage extends LitElement {
   @consume({ context: pokeItemContext })
-  @state()
   pokeItem: PokeItem | null = null;
 
   static styles = css`
-    /* Imagen del Pokémon */
-    .pokemon-image {
-      background-color: #f0f0f0;
-      padding: 20px;
-      text-align: center;
+    .pokemon-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
-      & img {
-        width: 120px;
-        height: 120px;
-        object-fit: contain;
-      }
+      padding: 20px;
     }
   `;
 
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    debugger;
-    console.log(this.pokeItem);
-  }
-
   render() {
     return html`
-      <div class="pokemon-image">
-        <img
-          src=${this.pokeItem?.sprite || ''}
-          alt=${this.pokeItem?.name || ''}
-        />
+      <div class="pokemon-info">
+        <slot></slot>
       </div>
     `;
   }

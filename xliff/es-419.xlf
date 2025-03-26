@@ -2,26 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 <file target-language="es-419" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
-<trans-unit id="s41431f2bbdc5fd3d">
-  <source>Attack</source>
-  <target>Ataque</target>
-</trans-unit>
-<trans-unit id="s6958dbb3beffbfd3">
-  <source>Defense</source>
-  <target>Defensa</target>
-</trans-unit>
-<trans-unit id="s15346ff430ed24ec">
-  <source>Special Attack</source>
-  <target>Ataque Especial</target>
-</trans-unit>
-<trans-unit id="s792b0220bed0259c">
-  <source>Special Defense</source>
-  <target>Defensa Especial</target>
-</trans-unit>
-<trans-unit id="se24130f1123560a0">
-  <source>Speed</source>
-  <target>Velocidad</target>
-</trans-unit>
 <trans-unit id="s422970755c943436">
   <source>big-pecks</source>
   <target>Sacapecho</target>
@@ -121,6 +101,30 @@
 <trans-unit id="sd3cacd4c82e5be70">
   <source>water</source>
   <target>Agua</target>
+</trans-unit>
+<trans-unit id="sb138769a1af3a55d">
+  <source>attack</source>
+  <target>Ataque</target>
+</trans-unit>
+<trans-unit id="s43d410f7ec113773">
+  <source>defense</source>
+  <target>Defensa</target>
+</trans-unit>
+<trans-unit id="sfa1ee288abf6cf8f">
+  <source>special-attack</source>
+  <target>Ataque especial</target>
+</trans-unit>
+<trans-unit id="s1a58e6dcf038da65">
+  <source>special-defense</source>
+  <target>Defensa especial</target>
+</trans-unit>
+<trans-unit id="s2281498aa0200e40">
+  <source>speed</source>
+  <target>Velocidad</target>
+</trans-unit>
+<trans-unit id="s08ba4807b55e9cc5">
+  <source>hp</source>
+  <target>Hp</target>
 </trans-unit>
 </body>
 </file>

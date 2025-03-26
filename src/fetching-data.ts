@@ -56,18 +56,9 @@ export class FetchingData extends LitElement {
     this._initList();
   }
 
-  // render() {
-  //   return this.pokeList.length === 0
-  //     ? html`<p>Cargando pokemons...</p>`
-  //     : html` <poke-list .pokeList=${this.pokeList}></poke-list> `;
-  // }
-
   render() {
     return this.pokeList.length === 0
       ? html`<p>Cargando pokemons...</p>`
-      : html`
-          <
-          <poke-list .pokeList=${this.pokeList}></poke-list>
-        `;
+      : html` <poke-list .pokeList=${this.pokeList}></poke-list> `;
   }
 }
