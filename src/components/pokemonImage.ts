@@ -1,13 +1,20 @@
 import { consume } from '@lit/context';
-import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { pokeItemContext } from '../context/pokeitem-context.js';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { pokeItemContext } from '../context/context.js';
 import { PokeItem } from '../services/pokemon.js';
 
 @customElement('pokemon-image')
 export class PokemonImage extends LitElement {
-  @consume({ context: pokeItemContext })
-  pokeItem: PokeItem | null = null;
+  // @consume({ context: pokeItemContext })
+  // @state()
+  // pokeItem: PokeItem | null = null;
+
+  @property({ type: String })
+  sprite: string = '';
+
+  @property({ type: String })
+  name: string = '';
 
   static styles = css`
     .pokemon-image {
@@ -25,10 +32,7 @@ export class PokemonImage extends LitElement {
   render() {
     return html`
       <div class="pokemon-image">
-        <img
-          src=${this.pokeItem?.sprite || ''}
-          alt=${this.pokeItem?.name || ''}
-        />
+        <img src=${this.sprite} alt=${this.name} />
       </div>
     `;
   }

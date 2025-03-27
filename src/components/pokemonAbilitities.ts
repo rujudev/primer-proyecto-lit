@@ -1,13 +1,16 @@
 import { consume } from '@lit/context';
 import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { pokeItemContext } from '../context/pokeitem-context.js';
-import { PokeItem } from '../services/pokemon.js';
+import { customElement, property } from 'lit/decorators.js';
+import { pokeItemContext } from '../context/context.js';
+import { Abilities, PokeItem } from '../services/pokemon.js';
 
 @customElement('pokemon-abilities')
 export class PokemonAbilities extends LitElement {
-  @consume({ context: pokeItemContext })
-  pokeItem: PokeItem | null = null;
+  // @consume({ context: pokeItemContext })
+  // pokeItem: PokeItem | null = null;
+
+  @property({ type: Array })
+  abilities: Abilities[] = [];
 
   static styles = css`
     .pokemon-abilities {
@@ -49,7 +52,7 @@ export class PokemonAbilities extends LitElement {
       <div class="pokemon-abilities">
         <h3>Habilidades:</h3>
         <ul>
-          ${this.pokeItem?.abilities.map(
+          ${this.abilities.map(
             ({ literal }) => html`
               <li>
                 <svg

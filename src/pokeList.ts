@@ -4,13 +4,16 @@ import { repeat } from 'lit/directives/repeat.js';
 import { PokeItem, PokeListItem } from './services/pokemon.js';
 
 import { msg } from '@lit/localize';
+
+import './components/modal.js';
 import './components/select/select-wrapper.js';
+import { Modal } from './context/context.js';
 import './pokeListItem.js';
 
 @customElement('poke-list')
 export class PokeList extends LitElement {
   static styles = css`
-    main {
+    .container {
       display: flex;
       flex-direction: column;
 
@@ -93,6 +96,12 @@ export class PokeList extends LitElement {
 
   @state()
   private orderValue: string = '';
+
+  @state()
+  private modalContext: Modal | null = {
+    open: false,
+    clickedPokeItem: null,
+  };
 
   private static _statsName: Record<string, string> | null = null;
   private static _abilitiesName: Record<string, string> | null = null;
@@ -229,11 +238,26 @@ export class PokeList extends LitElement {
     }
   };
 
+  private _handleSelectPokeCard(event: CustomEvent<PokeItem>) {
+    const { detail } = event;
+
+    if (detail) {
+      this.modalContext = {
+        open: true,
+        clickedPokeItem: detail,
+      };
+    }
+  }
+
+  protected updated(_changedProperties: PropertyValues): void {
+    console.log('Poke list actualizado', _changedProperties);
+  }
+
   render() {
     return this.pokeList.length === 0
       ? html`<p>No hay pokemons para mostrar</p>`
       : html`
-          <main>
+          <div class="container">
             <select-wrapper
               .onHandleChangeOrder="${this._handleChangeOrder}"
               .onHandleChangeFilter="${this._handleChangeFilter}"
@@ -244,12 +268,16 @@ export class PokeList extends LitElement {
                 pokemon => pokemon.name,
                 (item, _) => {
                   return html`
-                    <poke-list-item .pokeItem=${item}></poke-list-item>
+                    <poke-list-item
+                      @selected-poke-item=${this._handleSelectPokeCard}
+                      .pokeItem=${item}
+                    ></poke-list-item>
                   `;
                 },
               )}
             </ul>
-          </main>
+          </div>
+          <pokemon-modal .modalContext=${this.modalContext}></pokemon-modal>
         `;
   }
 }

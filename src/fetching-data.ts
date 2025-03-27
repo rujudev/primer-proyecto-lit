@@ -8,7 +8,7 @@ import {
 } from './services/pokemon.js';
 
 import { provide } from '@lit/context';
-import { pokeItemContext } from './context/pokeitem-context.js';
+import { pokeItemContext } from './context/context.js';
 import './pokeList.js';
 
 @customElement('fetching-data')
@@ -23,6 +23,7 @@ export class FetchingData extends LitElement {
       height: 100%;
       font-size: calc(10px + 2vmin);
       color: #1a2b42;
+      padding: 20px;
     }
 
     poke-list {

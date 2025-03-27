@@ -1,15 +1,18 @@
 import { consume } from '@lit/context';
 import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { pokeItemContext } from '../context/pokeitem-context.js';
-import { PokeItem } from '../services/pokemon.js';
+import { customElement, property } from 'lit/decorators.js';
+import { pokeItemContext } from '../context/context.js';
+import { PokeItem, Types } from '../services/pokemon.js';
 
 import './pokemonType.js';
 
 @customElement('pokemon-types')
 export class PokemonTypes extends LitElement {
-  @consume({ context: pokeItemContext })
-  pokeItem: PokeItem | null = null;
+  // @consume({ context: pokeItemContext })
+  // pokeItem: PokeItem | null = null;
+
+  @property({ type: Array })
+  types: Types[] = [];
 
   static styles = css`
     .pokemon-types {
@@ -22,7 +25,7 @@ export class PokemonTypes extends LitElement {
   render() {
     return html`
       <div class="pokemon-types">
-        ${this.pokeItem?.types.map(
+        ${this.types.map(
           ({ id, literal }) =>
             html`<pokemon-type id="${id}" literal="${literal}"></pokemon-type>`,
         )}

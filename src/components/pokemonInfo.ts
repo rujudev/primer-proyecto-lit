@@ -1,7 +1,7 @@
 import { consume } from '@lit/context';
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { pokeItemContext } from '../context/pokeitem-context.js';
+import { pokeItemContext } from '../context/context.js';
 import { PokeItem } from '../services/pokemon.js';
 
 @customElement('pokemon-info')

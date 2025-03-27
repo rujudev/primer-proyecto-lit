@@ -1,18 +1,18 @@
-type BaseType = {
+export type Stats = {
   id: string;
   literal: string;
   baseStat: number;
 };
 
-type Types = Omit<BaseType, 'baseStat'>;
-type Abilities = Omit<BaseType, 'baseStat'>;
+export type Types = Omit<Stats, 'baseStat'>;
+export type Abilities = Omit<Stats, 'baseStat'>;
 
 export type PokeItem = {
   id?: string;
   name?: string;
   sprite?: string;
   types: Types[];
-  stats: BaseType[];
+  stats: Stats[];
   abilities: Abilities[];
 };
 
